@@ -15,10 +15,18 @@ const pool = new Pool({
     }
 });
 
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error('Erro ao conectar ao banco:', err);
+  } else {
+    console.log('Conexão com banco bem-sucedida! Hora atual:', res.rows[0]);
+  }
+});
+
+
 app.get('/api/vendas', (req, res) => {
     res.send('API está rodando');
 })
-
 
 
 app.post('/api/vendas', async (req, res) => {
