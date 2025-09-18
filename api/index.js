@@ -25,7 +25,14 @@ pool.query('SELECT NOW()', (err, res) => {
 
 
 app.get('/api/vendas', (req, res) => {
-    res.send('API está rodando');
+    pool.query('SELECT NOW()', (err, res) => {
+        if (err) {
+            console.error('Erro ao conectar ao banco:', err);
+        } else {
+            console.log('Conexão com banco bem-sucedida! Hora atual:', res.rows[0]);
+        }
+    });
+
 })
 
 app.post('/api/vendas', async (req, res) => {
@@ -47,13 +54,13 @@ app.post('/api/vendas', async (req, res) => {
 
 
 (async () => {
-  const client = await pool.connect();
-  try {
-    const res = await client.query('SELECT NOW()');
-    console.log('Hora do banco:', res.rows[0]);
-  } finally {
-    client.release();
-  }
+    const client = await pool.connect();
+    try {
+        const res = await client.query('SELECT NOW()');
+        console.log('Hora do banco:', res.rows[0]);
+    } finally {
+        client.release();
+    }
 })().catch(err => console.error('Erro na conexão:', err));
 
 
