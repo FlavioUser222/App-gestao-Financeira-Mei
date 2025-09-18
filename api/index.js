@@ -11,17 +11,17 @@ app.use(express.json())
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-        rejectUnauthorized: false,
-    },
+        rejectUnauthorized: false
+    }
 });
 
-app.get('/vendas', (req, res) => {
-  res.send('API está rodando');
+app.get('/api/vendas', (req, res) => {
+    res.send('API está rodando');
 })
 
 
 
-app.post('/vendas', async (req, res) => {
+app.post('/api/vendas', async (req, res) => {
     const { cliente, valor, data } = req.body
 
     try {
