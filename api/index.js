@@ -45,6 +45,18 @@ app.post('/api/vendas', async (req, res) => {
     }
 });
 
+
+(async () => {
+  const client = await pool.connect();
+  try {
+    const res = await client.query('SELECT NOW()');
+    console.log('Hora do banco:', res.rows[0]);
+  } finally {
+    client.release();
+  }
+})().catch(err => console.error('Erro na conexão:', err));
+
+
 app.listen(port, () => {
     console.log('App rodando na porta 3000')
 })
